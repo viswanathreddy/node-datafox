@@ -2,6 +2,14 @@ module.exports = class Companies
   constructor: (@_conn) ->
     return
 
+  create: (options, callback) =>
+    opts = {
+      method: "POST"
+      url: "/companies"
+      body: options
+    }
+    @_conn.call(opts, callback)
+
   retrieve: (id, callback) =>
     opts = {
       method: "GET"

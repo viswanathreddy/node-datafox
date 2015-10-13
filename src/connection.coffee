@@ -30,13 +30,15 @@ module.exports = class Connection
 
   _request: (options, callback) =>
     opts = _.chain(options).clone().extend({json: true}).value()
-    # TODO: remove
-    opts = _.extend(opts, {strictSSL: false})
+    if @_requestOptions
+      opts = _.extend(opts, @_requestOptions)
     opts.url = @_apiUrl + opts.url
     request(opts, (err, response, body) =>
       callback(err, body)
     )
 
+  _setRequestOptions: (opts) =>
+    @_requestOptions = opts
 
   setTokenData: (tokenData) =>
     @accessToken = tokenData.access_token

@@ -42,9 +42,10 @@ module.exports = class Connection
     @accessToken = tokenData.access_token
     @refreshToken = tokenData.refresh_token
     if tokenData.expires_in
-      @_expiresIn = tokenData.expires_in
-      @_expires = new Date
-      @_expires.setSeconds(@_expires.getSeconds() + @_expiresIn)
+      @expires = new Date
+      @expires.setSeconds(@expires.getSeconds() + tokenData.expires_in)
+    else if tokenData.expires
+      @expires = tokenData.expires
     return
 
   getAuthorizationUrl: (opts) =>
@@ -105,7 +106,7 @@ module.exports = class Connection
 
 
   _getAccessTokenUnsafe: (callback) =>
-    if @accessToken and @_expires > new Date
+    if @accessToken and @expires > new Date
       async.nextTick(=> callback(null, @accessToken))
     else if @refreshToken
       @_refreshAccessToken((err) =>

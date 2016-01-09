@@ -1,10 +1,6 @@
 {
   "name": "datafox",
   "version": "0.1.0",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "coffee --compile --output lib src"
-  },
   "dependencies": {
     "async": "~1.4.2",
     "request": "~2.65.0",

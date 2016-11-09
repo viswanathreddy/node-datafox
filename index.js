@@ -1,3 +1,3 @@
 module.exports = {
-  Connection: require('./connection');
+  Connection: require('./lib/connection')
 }
